@@ -56,10 +56,7 @@ def count_cond(condition):
                 cnt += 1
         return cnt
     return g
-            
         
-
-
 
 def both_paths(sofar="S"):
     """
@@ -72,7 +69,13 @@ def both_paths(sofar="S"):
     >>> _ = upup()
     SUU
     """
-    "*** YOUR CODE HERE ***"
+    print(sofar)
+    def up():
+        return both_paths(sofar + 'U')
+    def down():
+        return both_paths(sofar + 'D')
+    return up, down
+        
 
 
 
@@ -90,7 +93,7 @@ def compose1(f, g):
     75
     >>> a2(5)
     108
-    """
+    """ 
     return lambda x: f(g(x))
 
 def composite_identity(f, g):
@@ -107,7 +110,12 @@ def composite_identity(f, g):
     >>> b1(4)                            # (4 + 1)^2 != 4^2 + 1
     False
     """
-    "*** YOUR CODE HERE ***"
+    def h(x):
+        if f(g(x)) == g(f(x)):
+            return True
+        else:
+            return False
+    return h
 
 
 
@@ -137,5 +145,23 @@ def cycle(f1, f2, f3):
     >>> do_two_cycles(1)
     19
     """
-    "*** YOUR CODE HERE ***"
-
+    def func(n):
+        if n == 0:
+            return lambda x : x
+        elif n % 3 == 1:
+            return lambda x : f1(x)
+        elif n % 3 == 2:
+            return lambda x : f2(x)
+        else:
+            return lambda x : f3(x)
+    def h(n):
+        def m(x):
+            y = x
+            for i in range(1, n + 1):
+                y = func(i)(y)
+            return y
+        return m
+    return h
+        
+                
+        
