@@ -98,7 +98,16 @@ def missing_digits(n):
     >>> check(HW_SOURCE_FILE, 'missing_digits', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    last_num = n % 10
+    last_not_least = n // 10 % 10
+    n = n // 10
+    if n == 0:
+        return 0
+    if last_not_least == last_num:
+        return missing_digits(n)
+    return last_num - last_not_least - 1 + missing_digits(n)
 
 
 def count_change(total):
