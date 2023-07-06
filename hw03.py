@@ -126,7 +126,22 @@ def count_change(total):
     >>> check(HW_SOURCE_FILE, 'count_change', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    def biggest(total):
+        if total == 1:
+            return 1
+        else:
+            return 2 * biggest(total // 2)
+    def change(total, biggest):
+        if total == 1:
+            return 1
+        if biggest == 1:
+            return 1
+        sum = 0
+        if total >= biggest:
+            sum = change(total - biggest, biggest)
+        sum += change(total, biggest // 2)
+        return sum
+    return change(total, biggest(total))
 
 
 def print_move(origin, destination):
@@ -161,8 +176,22 @@ def move_stack(n, start, end):
     Move the top disk from rod 1 to rod 3
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
-    "*** YOUR CODE HERE ***"
-
+    if n == 0:
+        return
+    if n == 1:
+        print_move(start, end)
+        return 
+    if start == 1 and end == 2:
+        other = 3
+    elif start == 2 and end == 1:
+        other = 3
+    elif (start == 1 and end == 3) or (start == 3 and end == 1):
+        other = 2
+    elif (start == 2 and end == 3) or (start == 3 and end == 2):
+        other = 1
+    move_stack(n - 1, start, other)
+    print_move(start, end)
+    move_stack(n - 1, other, end)
 
 from operator import sub, mul
 
@@ -176,5 +205,5 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    
 
