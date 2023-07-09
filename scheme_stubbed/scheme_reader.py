@@ -142,7 +142,12 @@ def scheme_read(src):
         # END PROBLEM 1
     elif val in quotes:
         # BEGIN PROBLEM 6
-        "*** YOUR CODE HERE ***"
+        if val == "'":
+            return Pair('quote', Pair(scheme_read(src), nil))
+        if val == "`":
+            return Pair('quasiquote', Pair(scheme_read(src), nil))
+        if val == ",":
+            return Pair('unquote', Pair(scheme_read(src), nil))
         # END PROBLEM 6
     elif val not in DELIMITERS:
         return val
